@@ -1,0 +1,738 @@
+{
+  "name": "Job Application Tracker & Screening Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM",
+          "mode": "list",
+          "cachedResultName": "Apex Logistics - Job Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2084002709,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit#gid=2084002709"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        0
+      ],
+      "id": "99067845-9bac-4f90-92ec-e872dd79988c",
+      "name": "New Application Submitted",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "cHyleiemnsOoq9xk",
+          "name": "Google Sheets Trigger account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c95e2f19-ceee-4a60-bf26-3d4cc34af86b",
+              "name": "=Application ID",
+              "value": "={{ \"APP-\" + Math.floor(10000000 + Math.random() * 90000000) }}",
+              "type": "string"
+            },
+            {
+              "id": "d431f988-ca02-4456-bee4-bea9d6bf9c83",
+              "name": "=Date",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "f5e71a27-62b8-43df-b126-35da65df2d7b",
+              "name": "=Name",
+              "value": "={{ $json[\"Full Name \"].trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "775a7ce9-7062-4143-b590-613bb69bc03a",
+              "name": "=Email",
+              "value": "={{ $json[\"  Email  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "e2a491ed-d7b5-40a0-bc25-a5c8bc4ee764",
+              "name": "=Phone",
+              "value": "={{ $json[\"  Phone Number  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "c8a0b0f9-0bb9-44f6-82a6-f72bd1c588c4",
+              "name": "=Position",
+              "value": "={{ $json[\"  Position Applying For  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "1310cc1a-d457-4747-a921-aa5b94d43004",
+              "name": "=Experience",
+              "value": "={{ $json[\"  Years Of Experience  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "c896686a-c869-47ce-91c9-c5f019700482",
+              "name": "=Location",
+              "value": "={{ $json[\"  Current Location  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "c5d49b2d-b8f5-42a3-9bd6-e78aba168ad9",
+              "name": "=CV",
+              "value": "={{ $json[\"  CV/Portfolio Link  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "3e42dcf0-ceea-4478-b8b4-75187b75c96b",
+              "name": "=Motivation",
+              "value": "={{ $json[\"  Motivation  \"] }}",
+              "type": "string"
+            },
+            {
+              "id": "d4bc1744-44d9-4171-bee4-3bcd69174503",
+              "name": "=Category",
+              "value": "={{ String(Object.values($json)).includes('6+') ? 'Experienced' : (String(Object.values($json)).includes('3-5') ? 'Mid Level' : 'Junior/Entry') }}",
+              "type": "string"
+            },
+            {
+              "id": "bf6d3b8c-3f67-463e-9e87-ea8b87520991",
+              "name": "Status",
+              "value": "New",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "fb075d60-5ffd-49a1-9781-2f923ad48b51",
+      "name": "Prepare Application Data"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM",
+          "mode": "list",
+          "cachedResultName": "Apex Logistics - Job Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Processed Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.Email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        16
+      ],
+      "id": "8cd35f79-86a0-4fad-bb54-2219ad5f353e",
+      "name": "Check Duplicate Application",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gml6w6xc7PBsxQRc",
+          "name": "Google Sheets account 19"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "805e7a9e-cc71-4861-9670-47c64eaa65fd",
+              "leftValue": "={{ $json.Email !== undefined }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        960,
+        16
+      ],
+      "id": "3ebe405b-1f5b-46e4-9b44-59411df47d66",
+      "name": "Is Duplicate?"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM",
+          "mode": "list",
+          "cachedResultName": "Apex Logistics - Job Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Processed Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XIibzuUltKOiPma7oOk4bTG7ZYv1H11dahNBinzxYxM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Application ID": "={{ $('Prepare Application Data').first().json[\"Application ID\"] }}",
+            "Date": "={{ $('Prepare Application Data').first().json.Date }}",
+            "Name": "={{ $('Loop Over Items').item.json.Name }}",
+            "Email": "={{ $('Loop Over Items').item.json.Email }}",
+            "Phone": "={{ $('Loop Over Items').item.json.Phone }}",
+            "Position": "={{ $('Loop Over Items').item.json.Position }}",
+            "Experience": "={{ $('Loop Over Items').item.json.Experience }}",
+            "Category": "={{ $('Loop Over Items').item.json.Category }}",
+            "Location": "={{ $('Loop Over Items').item.json.Location }}",
+            "CV": "={{ $('Loop Over Items').item.json.CV }}",
+            "Motivation": "={{ $('Prepare Application Data').first().json.Motivation }}",
+            "Status": "={{ $('Prepare Application Data').first().json.Status }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CV",
+              "displayName": "CV",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Motivation",
+              "displayName": "Motivation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -320,
+        352
+      ],
+      "id": "88e1f6c3-acb5-4939-9a8f-7d43cbbb8df2",
+      "name": "Save to Processed Applications",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gml6w6xc7PBsxQRc",
+          "name": "Google Sheets account 19"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Prepare Application Data').item.json.Email }}",
+        "subject": "Application Received - Apex Logistics",
+        "message": "=<div style=\"font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; margin: 0 auto;\">\n  <h2 style=\"color: #2b5329; border-bottom: 2px solid #2b5329; padding-bottom: 8px; margin-top: 0;\">\n    Application Received - Apex Logistics\n  </h2>\n  \n  <p>Dear <strong>{{ $('Prepare Application Data').first().json.Name }}</strong>,</p>\n  \n  <p>Thank you for applying for the <strong>{{ $('Prepare Application Data').first().json.Position }}</strong> position at Apex Logistics. We have successfully received your application and details.</p>\n  \n  <div style=\"background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 15px; margin: 20px 0;\">\n    <h4 style=\"margin-top: 0; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;\">Application Summary</h4>\n    <ul style=\"list-style: none; padding-left: 0; margin-bottom: 0;\">\n      <li style=\"padding: 4px 0;\"><strong>Application ID:</strong> {{ $('Prepare Application Data').first().json[\"Application ID\"] }}</li>\n      <li style=\"padding: 4px 0;\"><strong>Submitted Date:</strong> {{ $('Prepare Application Data').first().json.Date }}</li>\n      <li style=\"padding: 4px 0;\"><strong>Position:</strong> {{ $('Prepare Application Data').first().json.Position }}</li>\n      <li style=\"padding: 4px 0;\"><strong>Status:</strong> Under Review</li>\n    </ul>\n  </div>\n\n  <p><strong>What’s Next?</strong><br>\n  Our recruitment team is currently reviewing your profile. If your skills and experience align with our requirements, we will reach out to you directly for the next steps.</p>\n\n  <p style=\"margin-top: 25px;\">Best regards,<br>\n  <strong>Hiring Team</strong><br>\n  Apex Logistics</p>\n\n  <p style=\"font-size: 11px; color: #888; text-align: center; margin-top: 25px; border-top: 1px solid #eee; padding-top: 10px;\">\n    This is an automated notification. Please do not reply directly to this email.\n  </p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        352
+      ],
+      "id": "dbc180f1-58cb-47b0-9b4f-bdd95257b9bf",
+      "name": "Send Application Confirmation",
+      "webhookId": "9e1bde93-7505-4f38-8494-bef58fee0cc8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EusB1TZilQXg3t9b",
+          "name": "Gmail account 23"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "kzarsalan3@gmail.com",
+        "subject": "=[New Application] {{ $('Prepare Application Data').first().json.Position }} - {{ $('Prepare Application Data').first().json.Name }}",
+        "message": "=<div style=\"font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px;\">\n  <h2 style=\"color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 8px; margin-top: 0;\">\n    🚨 New Candidate Application Received\n  </h2>\n  \n  <p>A new application has been submitted for <strong>Apex Logistics</strong>. Here are the candidate details:</p>\n  \n  <table style=\"width: 100%; border-collapse: collapse; margin: 15px 0;\">\n    <tr style=\"background-color: #f9f9f9;\">\n      <td style=\"padding: 10px; font-weight: bold; border: 1px solid #ddd; width: 35%;\">Candidate Name:</td>\n      <td style=\"padding: 10px; border: 1px solid #ddd;\">{{ $('Prepare Application Data').first().json.Name }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; font-weight: bold; border: 1px solid #ddd;\">Position Applied:</td>\n      <td style=\"padding: 10px; border: 1px solid #ddd;\">{{ $('Prepare Application Data').first().json.Position }}</td>\n    </tr>\n    <tr style=\"background-color: #f9f9f9;\">\n      <td style=\"padding: 10px; font-weight: bold; border: 1px solid #ddd;\">Experience Category:</td>\n      <td style=\"padding: 10px; border: 1px solid #ddd; color: #d9534f; font-weight: bold;\">\n        {{ $('Prepare Application Data').first().json.Category }}\n      </td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; font-weight: bold; border: 1px solid #ddd;\">Location:</td>\n      <td style=\"padding: 10px; border: 1px solid #ddd;\">{{ $('Prepare Application Data').first().json.Location }}</td>\n    </tr>\n    <tr style=\"background-color: #f9f9f9;\">\n      <td style=\"padding: 10px; font-weight: bold; border: 1px solid #ddd;\">CV / Resume Link:</td>\n      <td style=\"padding: 10px; border: 1px solid #ddd;\">\n        <a href=\"{{ $('Prepare Application Data').first().json.CV }}\" style=\"color: #0275d8; text-decoration: none; font-weight: bold;\" target=\"_blank\">View Profile / CV</a>\n      </td>\n    </tr>\n  </table>\n\n  <div style=\"background-color: #f1f1f1; padding: 12px; border-left: 4px solid #0275d8; margin-top: 15px;\">\n    <strong>Candidate Motivation:</strong><br>\n    <em>\"{{ $('Prepare Application Data').first().json.Motivation }}\"</em>\n  </div>\n\n  <p style=\"font-size: 12px; color: #777; margin-top: 20px; text-align: center; border-top: 1px solid #eee; padding-top: 10px;\">\n    Automated Notification System • Apex Logistics Automated Screening\n  </p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        352
+      ],
+      "id": "1d3701f1-e41e-4c89-9193-3ba7037692c4",
+      "name": "Notify HR Team",
+      "webhookId": "b5b911d2-a1ab-4170-bd87-94256068778c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EusB1TZilQXg3t9b",
+          "name": "Gmail account 23"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a383ddfd-7369-4cf7-8831-195d588d4a50",
+              "leftValue": "={{ $('Classifying Experience').item.json.Category }})",
+              "rightValue": "Junior",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        288,
+        352
+      ],
+      "id": "b685e7fa-ec84-4233-96aa-f4c53e107d02",
+      "name": "Interview Eligible"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Prepare Application Data').first().json.Email }}",
+        "subject": "Interview Invitation - {{ $('Prepare Application Data').first().json.Position }} | Apex Logistics",
+        "message": "=<div style=\"font-family: 'Segoe UI', Arial, sans-serif; color: #333333; line-height: 1.6; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; margin: 0 auto; background-color: #ffffff;\">      <!-- Header Banner -->   <div style=\"border-bottom: 3px solid #2563eb; padding-bottom: 15px; margin-bottom: 25px;\">     <h2 style=\"color: #1e3a8a; margin: 0; font-size: 22px; font-weight: 700;\">       🎉 Interview Invitation – Apex Logistics     </h2>   </div>    <p style=\"font-size: 16px;\">Dear <strong>{{ $('Prepare Application Data').first().json.Name }}</strong>,</p>    <p>Thank you for applying for the <strong>{{ $('Prepare Application Data').first().json.Position }}</strong> position at Apex Logistics. After carefully reviewing your profile and impressive background, we are excited to invite you for a preliminary screening interview!</p>    <!-- Application Details Box -->   <div style=\"background-color: #f8fafc; border-left: 4px solid #2563eb; border-radius: 4px; padding: 15px 20px; margin: 25px 0;\">     <h4 style=\"margin: 0 0 10px 0; color: #1e293b; font-size: 15px;\">Application Summary</h4>     <p style=\"margin: 3px 0; font-size: 14px;\"><strong>Applicant ID:</strong> {{ $('Prepare Application Data').first().json[\"Application ID\"] }}</p>     <p style=\"margin: 3px 0; font-size: 14px;\"><strong>Target Role:</strong> {{ $('Prepare Application Data').first().json.Position }}</p>     <p style=\"margin: 3px 0; font-size: 14px;\"><strong>Status:</strong> Shortlisted for Screening</p>   </div>    <!-- Next Steps Section -->   <h3 style=\"color: #1e293b; font-size: 16px; margin-top: 20px;\">What are the Next Steps?</h3>   <ol style=\"padding-left: 20px; margin-bottom: 25px;\">     <li style=\"margin-bottom: 8px;\">Our HR Talent Acquisition team will reach out to you within 24–48 hours via email/phone.</li>     <li style=\"margin-bottom: 8px;\">We will coordinate a convenient slot for a brief 15 to 20-minute video screening call.</li>     <li style=\"margin-bottom: 8px;\">Please keep an updated copy of your resume ready for reference.</li>   </ol>    <p>We are eager to learn more about your experience and discuss how you can contribute to our team at Apex Logistics.</p>    <p style=\"margin-top: 30px; margin-bottom: 0;\">Best regards,</p>   <p style=\"margin-top: 5px; font-weight: bold; color: #1e3a8a;\">     Recruitment & HR Team<br>     <span style=\"font-weight: normal; color: #64748b; font-size: 13px;\">Apex Logistics Management</span>   </p>    <!-- Footer -->   <div style=\"border-top: 1px solid #f1f5f9; padding-top: 15px; margin-top: 30px; text-align: center;\">     <p style=\"font-size: 12px; color: #94a3b8; margin: 0;\">       This is an automated notification from the Apex Logistics Talent Acquisition Pipeline.     </p>   </div>  </div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        256
+      ],
+      "id": "e8f0ee4c-af4b-4ab4-91c0-cb3ea62b21a8",
+      "name": "Send Interview Invitation",
+      "webhookId": "1ee7d8ec-5e7d-4adc-9708-84d24ea8aeb0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EusB1TZilQXg3t9b",
+          "name": "Gmail account 23"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Loop Over Items').item.json.Email }}",
+        "subject": "Application Status Update - Apex Logistics",
+        "message": "=<div style=\"font-family: 'Segoe UI', Arial, sans-serif; color: #333333; line-height: 1.6; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; margin: 0 auto; background-color: #ffffff;\">      <div style=\"border-bottom: 3px solid #64748b; padding-bottom: 15px; margin-bottom: 25px;\">     <h2 style=\"color: #334155; margin: 0; font-size: 22px; font-weight: 700;\">       Application Update – Apex Logistics     </h2>   </div>    <p style=\"font-size: 16px;\">Dear <strong>{{ $('Prepare Application Data').first().json.Name }}</strong>,</p>    <p>Thank you for your interest in joining <strong>Apex Logistics</strong> and for submitting your application for the <strong>{{ $('Prepare Application Data').first().json.Position }}</strong> position.</p>    <p>We have carefully received and logged your details (Application ID: <strong>{{ $('Prepare Application Data').first().json[\"Application ID\"] }}</strong>). At this stage, we are actively prioritizing candidates with specialized experience for the immediate opening.</p>    <div style=\"background-color: #f8fafc; border-left: 4px solid #64748b; border-radius: 4px; padding: 15px 20px; margin: 25px 0;\">     <p style=\"margin: 0; font-size: 14px; color: #475569;\">       <strong>Talent Database Status:</strong> Your resume has been placed in our active candidate pool. Should a suitable entry/mid-level opening matching your skillset become available in the future, our recruitment team will reach out directly.     </p>   </div>    <p>We truly appreciate your time and wish you every success in your career search.</p>    <p style=\"margin-top: 30px; margin-bottom: 0;\">Best regards,</p>   <p style=\"margin-top: 5px; font-weight: bold; color: #334155;\">     Hiring Team<br>     <span style=\"font-weight: normal; color: #64748b; font-size: 13px;\">Apex Logistics Management</span>   </p>  </div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        464
+      ],
+      "id": "57aaa3a9-8bdb-475e-a95e-1b2fa8df39a1",
+      "name": "Keep On File",
+      "webhookId": "dae14133-2702-4343-9a8e-c57e99458f05",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EusB1TZilQXg3t9b",
+          "name": "Gmail account 23"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nreturn items.map(item => {\n  // Years of Experience ko numeric integer mein convert kar rahe hain\n  const expYears = parseInt(item.json.experience || item.json.Experience || item.json.years || 0, 10);\n  let category = '';\n\n  if (expYears >= 0 && expYears <= 2) {\n    category = 'Junior/Entry';\n  } else if (expYears >= 3 && expYears <= 5) {\n    category = 'Mid Level';\n  } else if (expYears > 5) {\n    category = 'Experienced';\n  } else {\n    category = 'Junior/Entry'; // Default fallback\n  }\n\n  return {\n    json: {\n      ...item.json,\n      Category: category\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        0
+      ],
+      "id": "8efd9ef1-03be-4aff-a39a-c34d822ef24d",
+      "name": "Classifying Experience"
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "Email",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        304,
+        0
+      ],
+      "id": "ccaa7d82-ddd3-4380-87a9-73e6bf390a2a",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        528,
+        0
+      ],
+      "id": "4e2637aa-9ae9-419f-80d7-0ac01e95f690",
+      "name": "Loop Over Items"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "New Application Submitted": {
+      "main": [
+        [
+          {
+            "node": "Prepare Application Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Application Data": {
+      "main": [
+        [
+          {
+            "node": "Classifying Experience",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Duplicate Application": {
+      "main": [
+        [
+          {
+            "node": "Is Duplicate?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Duplicate?": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save to Processed Applications",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Processed Applications": {
+      "main": [
+        [
+          {
+            "node": "Send Application Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Application Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Notify HR Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify HR Team": {
+      "main": [
+        [
+          {
+            "node": "Interview Eligible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interview Eligible": {
+      "main": [
+        [
+          {
+            "node": "Send Interview Invitation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Keep On File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classifying Experience": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Check Duplicate Application",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Interview Invitation": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep On File": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Karachi",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all"
+  },
+  "versionId": "47b129b6-c7fe-4709-a5ad-ed05bc6d0416",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "36e5b8acffef6d9e199c770a496fc034332fcb50e464bcb97692c27f5a41e6f9"
+  },
+  "nodeGroups": [],
+  "id": "JFlC1uEWtF8dZXns",
+  "tags": []
+}
