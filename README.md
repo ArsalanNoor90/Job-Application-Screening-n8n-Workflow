@@ -31,7 +31,30 @@ An automated HR screening workflow built with n8n that ingests candidate respons
 MIT — Free to use and customize.
 
 
+---
 
+## Features
+
+| Feature | Description |
+| :--- | :--- |
+| **Application Ingestion** | Triggers automatically on Google Forms submission. |
+| **Experience Classification** | Automatically labels candidates (Junior/Entry, Mid Level, Experienced). |
+| **Duplicate Prevention** | Checks existing applications to prevent double-processing. |
+| **Centralized Database** | Appends clean data directly into Google Sheets. |
+| **Dynamic Email Routing** | Sends interview invites to qualified applicants & retention emails to junior profiles. |
+
+---
+
+## Candidate Data Fields
+
+| Field | Description |
+| :--- | :--- |
+| **Full Name** | Candidate's complete name |
+| **Email** | Applicant email address |
+| **Phone Number** | Contact number |
+| **Position** | Applied position (e.g., Logistics Manager, Dispatch Officer) |
+| **Experience** | Raw experience input & classified category |
+| **Status** | Candidate routing status (Interview Eligible vs Keep On File) |
 
 
 
