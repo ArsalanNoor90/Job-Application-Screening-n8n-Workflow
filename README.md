@@ -121,11 +121,15 @@ An automated HR screening workflow built with n8n that ingests candidate respons
 
 ---
 
-## 🎬 Live Demo Video
+---
 
-| Platform | Access Link | Walkthrough Coverage |
-| :---: | :---: | :--- |
-| 🚀 **LinkedIn** | [▶️ Watch Loom Demo Video][(YOUR_LINKEDIN_LOOM_POST_URL](https://www.linkedin.com/posts/arsalan-noor-1510492bb_n8n-automation-hrtech-activity-7505220191522459648-h2AT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy28Y0ByakjFKAlhxlwGieeh2Fc8Djsg8s)) | Full end-to-end execution: Google Form submission ➔ n8n processing ➔ Sheet logging |
+## 🎬 Live Demo & Walkthrough
+
+> ### 🚀 [▶️ Watch Full Workflow Execution Demo](https://www.linkedin.com/posts/arsalan-noor-1510492bb_n8n-automation-hrtech-activity-7505220191522459648-h2AT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy28Y0ByakjFKAlhxlwGieeh2Fc8Djsg8s)
+> **Platform:** LinkedIn / Loom  
+> **What You'll See:** Live Google Form submission ➔ Real-time n8n processing ➔ Automated experience classification ➔ Master Google Sheet logging & Gmail dispatch.
+
+---
 
 
 📜 LicenseMIT License — Free to modify, use, and distribute for commercial or personal projects.
