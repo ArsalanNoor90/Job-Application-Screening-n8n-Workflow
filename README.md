@@ -4,57 +4,69 @@ An automated HR screening workflow built with n8n that ingests candidate respons
 
 ---
 
-## What It Does
+## ⚙️ What It Does
++---------------------------------------------------------------------------------+
+|                                WORKFLOW PIPELINE                                |
++---------------------------------------------------------------------------------+
+|  [ 📑 Google Form Submission ]                                                  |
+|                 │                                                               |
+|                 ▼                                                               |
+|  [ ⚙️ Data Preparation & Cleaning ]                                              |
+|                 │                                                               |
+|                 ▼                                                               |
+|  [ 🏷️ Experience Classification ] ─── ( Junior / Mid / Experienced )             |
+|                 │                                                               |
+|                 ▼                                                               |
+|  [ 🛡️ Duplicate Candidate Check ] ─── ( Query Google Sheets Ledger )             |
+|                 │                                                               |
+|                 ▼                                                               |
+|  [ 📊 Append Record to Google Sheets ]                                          |
+|                 │                                                               |
+|                 ├───────────────────────────────┐                               |
+|                 ▼                               ▼                               |
+|   [ 📩 Send Interview Invite ]      [ 📥 Send Keep-on-File Email ]              |
+|     (If Experience >= Mid)            (If Experience == Junior)                 |
++---------------------------------------------------------------------------------+
 
-```text
-[ Google Form ] ➔ [ Data Prep ] ➔ [ Experience Classification ]
-                                              │
-                                              ▼
-[ Email Alerts ] ◄─ [ Duplicate Check ] ◄─ [ Data Deduplication ]
 
+🖼️ System Screenshots
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ 1. n8n Workflow Canvas Architecture                                            │
+└─────────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ 2. Application Form & Master Google Sheets Ledger                               │
+└─────────────────────────────────────────────────────────────────────────────────┘
 
 ---
 
-## Screenshots
-
-### Workflow Architecture
-![n8n Workflow](Screenshot 2026-09-14 195127.png)
-
-### Google Form & Database Setup
-![Google Form](Screenshot 2026-09-14 195348.png)
-![Google Sheets Database](Screenshot 2026-09-14 195528.png)
-
----
-
-## License
-
-MIT — Free to use and customize.
-
-
----
-
-## Features
+## ⚡ Features & System Capabilities
 
 | Feature | Description |
 | :--- | :--- |
-| **Application Ingestion** | Triggers automatically on Google Forms submission. |
-| **Experience Classification** | Automatically labels candidates (Junior/Entry, Mid Level, Experienced). |
-| **Duplicate Prevention** | Checks existing applications to prevent double-processing. |
-| **Centralized Database** | Appends clean data directly into Google Sheets. |
-| **Dynamic Email Routing** | Sends interview invites to qualified applicants & retention emails to junior profiles. |
+| 📥 **Application Ingestion** | Triggers automatically whenever a new Google Form application is submitted. |
+| 🏷️ **Experience Classification** | Automatically categorizes applicants into **Junior/Entry**, **Mid Level**, and **Experienced** tiers. |
+| 🛡️ **Duplicate Prevention** | Checks existing records in Google Sheets to avoid double-processing candidates. |
+| 📊 **Centralized Database** | Logs structured candidate details directly into Google Sheets. |
+| 🔀 **Dynamic Communication** | Automatically dispatches Interview Invites or Keep-on-File retention emails via Gmail. |
 
 ---
 
-## Candidate Data Fields
+## 📋 Candidate Data Fields
 
-| Field | Description |
-| :--- | :--- |
-| **Full Name** | Candidate's complete name |
-| **Email** | Applicant email address |
-| **Phone Number** | Contact number |
-| **Position** | Applied position (e.g., Logistics Manager, Dispatch Officer) |
-| **Experience** | Raw experience input & classified category |
-| **Status** | Candidate routing status (Interview Eligible vs Keep On File) |
+```text
+┌─────────────────────────┬────────────────────────────────────────────────────────────┐
+│ Field Name              │ Field Description                                          │
+├─────────────────────────┼────────────────────────────────────────────────────────────┤
+│ 👤 Full Name            │ Candidate's complete name                                  │
+│ 📧 Email                │ Candidate's contact email address                          │
+│ 📞 Phone Number         │ Contact number for candidate reachout                      │
+│ 🎯 Position Applying    │ Applied job role (e.g., Logistics Manager)                │
+│ ⏳ Years of Experience  │ Raw years entered in the form                              │
+│ 🏷️ Experience Category  │ Classified tier: Junior / Mid Level / Experienced          │
+│ 📌 Status               │ Decision status: "Interview Eligible" or "Keep On File"   │
+└─────────────────────────┴────────────────────────────────────────────────────────────┘
+
+
 
 
 
