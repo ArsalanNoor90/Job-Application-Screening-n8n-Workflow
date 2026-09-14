@@ -5,37 +5,25 @@ An automated HR screening workflow built with n8n that ingests candidate respons
 ---
 
 ## ⚙️ What It Does
-+---------------------------------------------------------------------------------+
-|                                WORKFLOW PIPELINE                                |
-+---------------------------------------------------------------------------------+
-|  [ 📑 Google Form Submission ]                                                  |
-|                 │                                                               |
-|                 ▼                                                               |
-|  [ ⚙️ Data Preparation & Cleaning ]                                              |
-|                 │                                                               |
-|                 ▼                                                               |
-|  [ 🏷️ Experience Classification ] ─── ( Junior / Mid / Experienced )             |
-|                 │                                                               |
-|                 ▼                                                               |
-|  [ 🛡️ Duplicate Candidate Check ] ─── ( Query Google Sheets Ledger )             |
-|                 │                                                               |
-|                 ▼                                                               |
-|  [ 📊 Append Record to Google Sheets ]                                          |
-|                 │                                                               |
-|                 ├───────────────────────────────┐                               |
-|                 ▼                               ▼                               |
-|   [ 📩 Send Interview Invite ]      [ 📥 Send Keep-on-File Email ]              |
-|     (If Experience >= Mid)            (If Experience == Junior)                 |
-+---------------------------------------------------------------------------------+
 
+> 💡 **Workflow Overview**
+> 
+> * **1. Application Ingestion:** Listens to incoming Google Forms entries in real-time.
+> * **2. Experience Classification:** Automatically tags candidate profiles as **Junior**, **Mid Level**, or **Experienced**.
+> * **3. Duplicate Guard:** Queries the master Google Sheet to prevent double-processing.
+> * **4. Automated Communication:** Automatically routes **Interview Invites** to qualified candidates and **Keep-on-File Emails** to junior applicants.
 
-🖼️ System Screenshots
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ 1. n8n Workflow Canvas Architecture                                            │
-└─────────────────────────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ 2. Application Form & Master Google Sheets Ledger                               │
-└─────────────────────────────────────────────────────────────────────────────────┘
+---
+
+## 🖼️ System Screenshots
+
+| Workflow Architecture | Application Form & Database |
+| :---: | :---: |
+| ![n8n Workflow](Screenshot%202026-09-14%20195127.png) | ![Google Form](Screenshot%202026-09-14%20195348.png) |
+
+| Master Database Ledger |
+| :---: |
+| ![Google Sheets](Screenshot%202026-09-14%20195528.png) |
 
 ---
 
